@@ -60,8 +60,7 @@ class ALbertTokenizer(PreTrainedTokenizer):
                  pad_token="<pad>", cls_token="[CLS]", mask_token="[MASK]", **kwargs):
         super(ALbertTokenizer, self).__init__(unk_token=unk_token, sep_token=sep_token,
                                              pad_token=pad_token, cls_token=cls_token,
-                                             mask_token=mask_token, additional_special_tokens=
-                                             additional_special_tokens, **kwargs)
+                                             mask_token=mask_token,  **kwargs)
 
         self.max_len_single_sentence = self.max_len - 2  # take into account special tokens
         self.max_len_sentences_pair = self.max_len - 3  # take into account special tokens

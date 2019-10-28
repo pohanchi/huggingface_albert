@@ -42,7 +42,7 @@ from .tokenization_xlnet import XLNetTokenizer, SPIECE_UNDERLINE
 from .tokenization_xlm import XLMTokenizer
 from .tokenization_roberta import RobertaTokenizer
 from .tokenization_distilbert import DistilBertTokenizer
-
+from .tokenization_albert import ALbertTokenizer
 # Configurations
 from .configuration_utils import PretrainedConfig
 from .configuration_auto import AutoConfig
