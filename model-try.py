@@ -11,9 +11,9 @@ import logging
 logging.basicConfig(level=logging.INFO)
 PATH = "./pytorch_albert"
 
-config = ALBertConfig.from_json_file("../../albert_tf_official/google-research-albert/albert/albert_config.json")
+config = ALBertConfig.from_json_file("./albert_config.json")
 model = ALBertForPreTraining(config)
 model.load_state_dict(torch.load(PATH))
 for name, param in model.named_parameters():
     if param.requires_grad:
-        print(name, param.size())
+        print(name, param)
