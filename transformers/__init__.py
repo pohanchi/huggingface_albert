@@ -56,13 +56,13 @@ from .configuration_ctrl import CTRLConfig, CTRL_PRETRAINED_CONFIG_ARCHIVE_MAP
 from .configuration_xlm import XLMConfig, XLM_PRETRAINED_CONFIG_ARCHIVE_MAP
 from .configuration_roberta import RobertaConfig, ROBERTA_PRETRAINED_CONFIG_ARCHIVE_MAP
 from .configuration_distilbert import DistilBertConfig, DISTILBERT_PRETRAINED_CONFIG_ARCHIVE_MAP
-
+from .configuration_albert import ALBertConfig
 # Modeling
 if is_torch_available():
     from .modeling_utils import (PreTrainedModel, prune_layer, Conv1D)
     from .modeling_auto import (AutoModel, AutoModelForSequenceClassification, AutoModelForQuestionAnswering,
                                 AutoModelWithLMHead)
-
+    from .modeling_albert import (ALBertModel,ALBertPreTrainedModel,ALBertForPreTraining,ALBertForMaskedLM, load_tf_weights_in_albert, BERT_PRETRAINED_MODEL_ARCHIVE_MAP)
     from .modeling_bert import (BertPreTrainedModel, BertModel, BertForPreTraining,
                                 BertForMaskedLM, BertForNextSentencePrediction,
                                 BertForSequenceClassification, BertForMultipleChoice,
@@ -94,6 +94,8 @@ if is_torch_available():
     from .modeling_distilbert import (DistilBertForMaskedLM, DistilBertModel,
                                 DistilBertForSequenceClassification, DistilBertForQuestionAnswering,
                                 DISTILBERT_PRETRAINED_MODEL_ARCHIVE_MAP)
+    
+    
 
     # Optimization
     from .optimization import (AdamW, ConstantLRSchedule, WarmupConstantSchedule, WarmupCosineSchedule,
