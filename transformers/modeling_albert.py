@@ -355,9 +355,9 @@ class ALBertLayer(nn.Module):
             hidden_states= self.LayerNorm(hidden_states)
         attention_outputs = self.attention_1(hidden_states, attention_mask, head_mask)
         attention_output = attention_outputs[0]
-
-        layer_output = self.intermediate(attention_output)
-
+        attention_norm=self.LayerNorm(attention_output)
+        layer_output = self.intermediate(attention_norm)
+        layer_output = self.LayerNorm_1(layer_output)
         outputs = (layer_output,) + attention_outputs[1:]  # add attentions if we output them
         return outputs
 
