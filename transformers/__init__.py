@@ -62,7 +62,7 @@ if is_torch_available():
     from .modeling_utils import (PreTrainedModel, prune_layer, Conv1D)
     from .modeling_auto import (AutoModel, AutoModelForSequenceClassification, AutoModelForQuestionAnswering,
                                 AutoModelWithLMHead)
-    from .modeling_albert import (ALBertModel,ALBertPreTrainedModel,ALBertForPreTraining,ALBertForMaskedLM, load_tf_weights_in_albert, BERT_PRETRAINED_MODEL_ARCHIVE_MAP)
+    from .modeling_albert import (ALBertModel,ALBertPreTrainedModel,ALBertForPreTraining,ALBertForMaskedLM, load_tf_weights_in_albert, ALBertForQuestionAnswering)
     from .modeling_bert import (BertPreTrainedModel, BertModel, BertForPreTraining,
                                 BertForMaskedLM, BertForNextSentencePrediction,
                                 BertForSequenceClassification, BertForMultipleChoice,
