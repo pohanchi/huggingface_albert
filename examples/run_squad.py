@@ -22,7 +22,7 @@ import logging
 import os
 import random
 import glob
-
+import pdb
 import numpy as np
 import torch
 from torch.utils.data import (DataLoader, RandomSampler, SequentialSampler,
@@ -380,9 +380,9 @@ def main():
     parser.add_argument("--do_lower_case", action='store_true',
                         help="Set this flag if you are using an uncased model.")
 
-    parser.add_argument("--per_gpu_train_batch_size", default=8, type=int,
+    parser.add_argument("--per_gpu_train_batch_size", default=1, type=int,
                         help="Batch size per GPU/CPU for training.")
-    parser.add_argument("--per_gpu_eval_batch_size", default=8, type=int,
+    parser.add_argument("--per_gpu_eval_batch_size", default=1, type=int,
                         help="Batch size per GPU/CPU for evaluation.")
     parser.add_argument("--learning_rate", default=5e-5, type=float,
                         help="The initial learning rate for Adam.")
@@ -398,7 +398,7 @@ def main():
                         help="Total number of training epochs to perform.")
     parser.add_argument("--max_steps", default=-1, type=int,
                         help="If > 0: set total number of training steps to perform. Override num_train_epochs.")
-    parser.add_argument("--warmup_steps", default=0, type=int,
+    parser.add_argument("--warmup_steps", default=384, type=int,
                         help="Linear warmup over warmup_steps.")
     parser.add_argument("--n_best_size", default=20, type=int,
                         help="The total number of n-best predictions to generate in the nbest_predictions.json output file.")
@@ -481,7 +481,7 @@ def main():
         torch.distributed.barrier()  # Make sure only the first process in distributed training will download model & vocab
 
     model.to(args.device)
-
+    pdb.set_trace()
     logger.info("Training/evaluation parameters %s", args)
 
     # Before we do anything with models, we want to ensure that we get fp16 execution of torch.einsum if args.fp16 is set.

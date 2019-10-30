@@ -14,9 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """ Finetuning the library models for question-answering on SQuAD (DistilBERT, Bert, XLM, XLNet)."""
-
+#import pdb
 from __future__ import absolute_import, division, print_function
-
+import pdb
 import argparse
 import logging
 import os
@@ -127,19 +127,22 @@ def train(args, train_dataset, model, tokenizer):
         epoch_iterator = tqdm(train_dataloader, desc="Iteration", disable=args.local_rank not in [-1, 0])
         for step, batch in enumerate(epoch_iterator):
             model.train()
+            #pdb.set_trace()
             batch = tuple(t.to(args.device) for t in batch)
             inputs = {'input_ids':       batch[0],
                       'attention_mask':  batch[1],
                       'start_positions': batch[3],
                       'end_positions':   batch[4]}
+            #pdb.set_trace()
             if args.model_type != 'distilbert':
                 inputs['token_type_ids'] = None if args.model_type == 'xlm' else batch[2]
             if args.model_type in ['xlnet', 'xlm']:
                 inputs.update({'cls_index': batch[5],
                                'p_mask':       batch[6]})
+            #pdb.set_trace()
             outputs = model(**inputs)
             loss = outputs[0]  # model outputs are always tuple in transformers (see doc)
-
+            #pdb.set_trace()
             if args.n_gpu > 1:
                 loss = loss.mean() # mean() to average on multi-gpu parallel (not distributed) training
             if args.gradient_accumulation_steps > 1:
@@ -328,7 +331,6 @@ def load_and_cache_examples(args, tokenizer, evaluate=False, output_examples=Fal
 
 def main():
     parser = argparse.ArgumentParser()
-
     ## Required parameters
     parser.add_argument("--train_file", default=None, type=str, required=True,
                         help="SQuAD json for training. E.g., train-v1.1.json")
@@ -338,7 +340,6 @@ def main():
                         help="Model type selected in the list: " + ", ".join(MODEL_CLASSES.keys()))
     parser.add_argument("--output_dir", default=None, type=str, required=True,
                         help="The output directory where the model checkpoints and predictions will be written.")
-
     ## Other parameters
     parser.add_argument("--config_name", default="", type=str,
                         help="Pretrained config name or path if not the same as model_name")
@@ -368,14 +369,13 @@ def main():
                         help="Rul evaluation during training at each logging step.")
     parser.add_argument("--do_lower_case", action='store_true',
                         help="Set this flag if you are using an uncased model.")
-
-    parser.add_argument("--per_gpu_train_batch_size", default=7, type=int,
+    parser.add_argument("--per_gpu_train_batch_size", default=6, type=int,
                         help="Batch size per GPU/CPU for training.")
-    parser.add_argument("--per_gpu_eval_batch_size", default=7, type=int,
+    parser.add_argument("--per_gpu_eval_batch_size", default=6, type=int,
                         help="Batch size per GPU/CPU for evaluation.")
-    parser.add_argument("--learning_rate", default=5e-5, type=float,
+    parser.add_argument("--learning_rate", default=8e-5, type=float,
                         help="The initial learning rate for Adam.")
-    parser.add_argument('--gradient_accumulation_steps', type=int, default=10,
+    parser.add_argument('--gradient_accumulation_steps', type=int, default=8,
                         help="Number of updates steps to accumulate before performing a backward/update pass.")
     parser.add_argument("--weight_decay", default=0.0, type=float,
                         help="Weight deay if we apply some.")
@@ -383,7 +383,7 @@ def main():
                         help="Epsilon for Adam optimizer.")
     parser.add_argument("--max_grad_norm", default=1.0, type=float,
                         help="Max gradient norm.")
-    parser.add_argument("--num_train_epochs", default=3.0, type=float,
+    parser.add_argument("--num_train_epochs", default=5.0, type=float,
                         help="Total number of training epochs to perform.")
     parser.add_argument("--max_steps", default=-1, type=int,
                         help="If > 0: set total number of training steps to perform. Override num_train_epochs.")
@@ -398,9 +398,9 @@ def main():
                         help="If true, all of the warnings related to data processing will be printed. "
                              "A number of warnings are expected for a normal SQuAD evaluation.")
 
-    parser.add_argument('--logging_steps', type=int, default=50,
+    parser.add_argument('--logging_steps', type=int, default=1000,
                         help="Log every X updates steps.")
-    parser.add_argument('--save_steps', type=int, default=50,
+    parser.add_argument('--save_steps', type=int, default=1000,
                         help="Save checkpoint every X updates steps.")
     parser.add_argument("--eval_all_checkpoints", action='store_true',
                         help="Evaluate all checkpoints starting with the same prefix as model_name ending and ending with step number")
@@ -462,16 +462,16 @@ def main():
 
     args.model_type = args.model_type.lower()
     config_class, model_class, tokenizer_class = MODEL_CLASSES[args.model_type]
-    config = config_class.from_json_file("../albert_config.json")
-    tokenizer = tokenizer_class(vocab_file="../30k-clean.model")
+    config = config_class.from_json_file("config/albert_config.json")
+    tokenizer = tokenizer_class(vocab_file="spm_model/30k-clean.model")
     model = model_class(config=config)
-    model.load_state_dict(torch.load("../pytorch_albert"),strict=False)
+    model.load_state_dict(torch.load("pytorch_model_state_dict/pytorch_albert"),strict=False)
 
     if args.local_rank == 0:
         torch.distributed.barrier()  # Make sure only the first process in distributed training will download model & vocab
 
     model.to(args.device)
-
+    #pdb.set_trace()
     logger.info("Training/evaluation parameters %s", args)
 
     # Before we do anything with models, we want to ensure that we get fp16 execution of torch.einsum if args.fp16 is set.

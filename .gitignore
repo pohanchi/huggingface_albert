@@ -5,7 +5,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.bin
-
+example_try/*
 # C extensions
 *.so
 examples/squad_like/*
@@ -27,7 +27,8 @@ wheels/
 .installed.cfg
 *.egg
 MANIFEST
-
+runs/*.json
+runs/*.bin
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
