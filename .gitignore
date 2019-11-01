@@ -9,6 +9,8 @@ example_try/*
 # C extensions
 *.so
 examples/squad_like/*
+examples/example_2lamb/*
+examples/example*
 # Distribution / packaging
 .Python
 build/

@@ -100,7 +100,7 @@ if is_torch_available():
     # Optimization
     from .optimization import (AdamW, ConstantLRSchedule, WarmupConstantSchedule, WarmupCosineSchedule,
                                WarmupCosineWithHardRestartsSchedule, WarmupLinearSchedule)
-    from .optimization_albert import Lamb
+    #from .optimization_albert import Lamb
 
 # TensorFlow
 if is_tf_available():

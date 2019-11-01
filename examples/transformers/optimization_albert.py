@@ -206,8 +206,8 @@ class Lamb(Optimizer):
         https://arxiv.org/abs/1904.00962
     """
 
-    def __init__(self, params, lr=1e-3, betas=(0.9, 0.999), eps=1e-6,
-                 weight_decay=0, adam=False):
+    def __init__(self, params, lr=1e-6, betas=(0.9, 0.999), eps=1e-6,
+                 adam=False,weight_decay=0.0, correct_bias=True):
         if not 0.0 <= lr:
             raise ValueError("Invalid learning rate: {}".format(lr))
         if not 0.0 <= eps:
@@ -265,8 +265,12 @@ class Lamb(Optimizer):
                 # bias_correction2 = 1 - beta2 ** state['step']
                 # Apply bias to lr to avoid broadcast.
                 step_size = group['lr'] # * math.sqrt(bias_correction2) / bias_correction1
-
-                weight_norm = p.data.pow(2).sum().sqrt().clamp(0, 10)
+                if group['correct_bias']:  # No bias correction for Bert
+                    bias_correction1 = 1.0 - beta1 ** state['step']
+                    bias_correction2 = 1.0 - beta2 ** state['step']
+                    step_size = step_size * math.sqrt(bias_correction2) / bias_correction1
+                    
+                weight_norm = p.data.pow(2).sum().sqrt().clamp(0, 1)
 
                 adam_step = exp_avg / exp_avg_sq.sqrt().add(group['eps'])
                 if group['weight_decay'] != 0:

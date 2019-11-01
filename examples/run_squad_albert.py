@@ -38,7 +38,7 @@ from tqdm import tqdm, trange
 
 from transformers import (WEIGHTS_NAME,ALBertConfig, ALBertForQuestionAnswering, ALbertTokenizer)
 
-from transformers import AdamW, WarmupLinearSchedule, Lamb
+from transformers import AdamW, WarmupLinearSchedule # Lamb
 
 from utils_squad import (read_squad_examples, convert_examples_to_features,
                          RawResult, write_predictions,
@@ -89,7 +89,7 @@ def train(args, train_dataset, model, tokenizer):
         {'params': [p for n, p in model.named_parameters() if not any(nd in n for nd in no_decay)], 'weight_decay': args.weight_decay},
         {'params': [p for n, p in model.named_parameters() if any(nd in n for nd in no_decay)], 'weight_decay': 0.0}
         ]
-    optimizer = Lamb(optimizer_grouped_parameters, lr=args.learning_rate, eps=args.adam_epsilon)
+    optimizer = AdamW(optimizer_grouped_parameters, lr=args.learning_rate, eps=args.adam_epsilon)
     scheduler = WarmupLinearSchedule(optimizer, warmup_steps=args.warmup_steps, t_total=t_total)
     if args.fp16:
         try:
@@ -463,7 +463,7 @@ def main():
     args.model_type = args.model_type.lower()
     config_class, model_class, tokenizer_class = MODEL_CLASSES[args.model_type]
     config = config_class.from_json_file("config/albert_config.json")
-    tokenizer = tokenizer_class(vocab_file="spm_model/30k-clean.model")
+    tokenizer = tokenizer_class(vocab_file="spm_model/30k-clean.model",lower_case=args.do_lower_case)
     model = model_class(config=config)
     model.load_state_dict(torch.load("pytorch_model_state_dict/pytorch_albert"),strict=False)
 
