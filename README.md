@@ -7,10 +7,10 @@ First Clone this repo. <br>
 Second, prepare your training data {Training data path} and testing data{Testing data path}.  <br>
 Current status: you can just run the squad task on albert-base model by using the below code on examples/ <br>
 
-Run on Squad 1.1 task (albert base)
-Performance EM 79.89 , F1 score 87.98
+Run on Squad 1.1 task (albert base) <br>
+EM 79.89 , F1 score 87.98 
 
-The paper report the performance is below:
+The paper report the performance is below: <br>
 EW 82.3 F1 score 89.3
 
 ```python run_squad_albert.py --train_file {Training data path} --predict_file {Testing data path} --model_type albert --output_dir ./example_do_lowercase_lamb --do_train --do_eval  --overwrite_output_dir --do_lower_case --evaluate_during_training --warmup_steps 384  --save_steps 1000 --logging_steps 1000 --num_train_epochs 3```
