@@ -270,7 +270,7 @@ class Lamb(Optimizer):
                     bias_correction2 = 1.0 - beta2 ** state['step']
                     step_size = step_size * math.sqrt(bias_correction2) / bias_correction1
                     
-                weight_norm = p.data.pow(2).sum().sqrt().clamp(0, 1)
+                weight_norm = p.data.pow(2).sum().sqrt()
 
                 adam_step = exp_avg / exp_avg_sq.sqrt().add(group['eps'])
                 if group['weight_decay'] != 0:

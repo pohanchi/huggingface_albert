@@ -27,12 +27,14 @@ from .tokenization_utils import PreTrainedTokenizer
 
 logger = logging.getLogger(__name__)
 
-VOCAB_FILES_NAMES = {'vocab_file': 'spiece.model'}
+VOCAB_FILES_NAMES = {'vocab_file': '30k-clean.model'}
 
 PRETRAINED_VOCAB_FILES_MAP = {
     'vocab_file':
     {
-    'albert-base-cased': "/tmp/a7d459b5925039d5bf3323939c0813192b2cfa0b/30k-clean.model",
+    'albert-xlarge': "https://drive.google.com/file/d/1TM8k-DaiZ62FFH9wjwfGWJ6lYVa-xM1_/view?usp=sharing",
+    'albert-base': "https://drive.google.com/file/d/1TM8k-DaiZ62FFH9wjwfGWJ6lYVa-xM1_/view?usp=sharing",
+    'albert-large': "https://drive.google.com/file/d/1TM8k-DaiZ62FFH9wjwfGWJ6lYVa-xM1_/view?usp=sharing",
     }
 }
 
@@ -68,7 +70,7 @@ class ALbertTokenizer(PreTrainedTokenizer):
         try:
             import sentencepiece as spm
         except ImportError:
-            logger.warning("You need to install SentencePiece to use XLNetTokenizer: https://github.com/google/sentencepiece"
+            logger.warning("You need to install SentencePiece to use ALBERTokenizer: https://github.com/google/sentencepiece"
                            "pip install sentencepiece")
 
         self.do_lower_case = do_lower_case
@@ -92,7 +94,7 @@ class ALbertTokenizer(PreTrainedTokenizer):
         try:
             import sentencepiece as spm
         except ImportError:
-            logger.warning("You need to install SentencePiece to use XLNetTokenizer: https://github.com/google/sentencepiece"
+            logger.warning("You need to install SentencePiece to use ALBerTokenizer: https://github.com/google/sentencepiece"
                            "pip install sentencepiece")
         self.sp_model = spm.SentencePieceProcessor()
         self.sp_model.Load(self.vocab_file)

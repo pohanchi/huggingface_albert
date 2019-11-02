@@ -341,6 +341,8 @@ def main():
     parser.add_argument("--output_dir", default=None, type=str, required=True,
                         help="The output directory where the model checkpoints and predictions will be written.")
     ## Other parameters
+    parser.add_argument("--config_pretrain",default="./config/albert_config.json")
+    parser.add_argument("--model_dict_pretrain",default="./pytorch_model_state_dict/pytorch_albert")
     parser.add_argument("--config_name", default="", type=str,
                         help="Pretrained config name or path if not the same as model_name")
     parser.add_argument("--tokenizer_name", default="", type=str,
@@ -462,10 +464,10 @@ def main():
 
     args.model_type = args.model_type.lower()
     config_class, model_class, tokenizer_class = MODEL_CLASSES[args.model_type]
-    config = config_class.from_json_file("config/albert_config.json")
+    config = config_class.from_json_file(args.config_pretrain)
     tokenizer = tokenizer_class(vocab_file="spm_model/30k-clean.model",lower_case=args.do_lower_case)
     model = model_class(config=config)
-    model.load_state_dict(torch.load("pytorch_model_state_dict/pytorch_albert"),strict=False)
+    model.load_state_dict(torch.load(args.model_dict_pretrain),strict=False)
 
     if args.local_rank == 0:
         torch.distributed.barrier()  # Make sure only the first process in distributed training will download model & vocab
