@@ -38,7 +38,7 @@ from tqdm import tqdm, trange
 
 from transformers import (WEIGHTS_NAME,ALBertConfig, ALBertForQuestionAnswering, ALbertTokenizer)
 
-from transformers import AdamW, WarmupLinearSchedule # Lamb
+from transformers import AdamW, WarmupLinearSchedule, Lamb
 
 from utils_squad import (read_squad_examples, convert_examples_to_features,
                          RawResult, write_predictions,
