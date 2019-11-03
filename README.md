@@ -17,8 +17,8 @@ EM 82.3 F1 score 89.3
 
 if you want albert_large or albert_xlarge, you need to download the pytorch_state_dict on here https://drive.google.com/drive/folders/1OZuoBw0cNkPLFXdoz4xTZrTXdRHO7hUI?usp=sharing <br> and put on ```examples/pytorch_model_state_dict``` <br>and set new a argument below as ```--model_dict_pretrain ./pytorch_model_state_dict/{model_file name}```.<br> also adjust the config file set to ```--config_pretrain ./config/{alber_xxx.json}``` then you can use it for big model.
 
-xlarge paper report the performance is below Squad 1.1 
+xlarge paper report the performance is below Squad 1.1 <br>
 EM 86.1 F1 score 92.6 
 
-My performance for xlarge 
+My performance for xlarge  <br>
 EM 84.09 F1 Score 91.59
