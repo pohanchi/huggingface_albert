@@ -21,4 +21,4 @@ xlarge paper report the performance is below Squad 1.1 <br>
 EM 86.1 F1 score 92.6 
 
 My performance for xlarge  <br>
-EM 84.09 F1 Score 91.59
+EM 84.52 F1 Score 91.61
