@@ -194,7 +194,7 @@ class ALBertEmbeddings(nn.Module):
 
         embeddings = words_embeddings + position_embeddings + token_type_embeddings
 
-        embeddings = self.dense(embeddings)
+        # embeddings = self.dense(embeddings)
 
         embeddings = self.LayerNorm(embeddings)
         embeddings = self.dropout(embeddings)
@@ -373,14 +373,14 @@ class ALBertEncoder(nn.Module):
     def forward(self, hidden_states, attention_mask=None, head_mask=None):
         all_hidden_states = ()
         all_attentions = ()
-        for i, layer_idx in enumerate(self.layer_num):
+        for i in range(self.layer_num):
             if (i ==0):
                 hidden_states = self.embedding_hidden_mapping_in(hidden_states)
 
             if self.output_hidden_states:
                 all_hidden_states = all_hidden_states + (hidden_states,)
 
-            layer_outputs = self.transformer(hidden_states,i, attention_mask, head_mask[i])
+            layer_outputs = self.transformer(i,hidden_states, attention_mask, head_mask[i])
             hidden_states = layer_outputs[0]
 
             if self.output_attentions:
@@ -437,15 +437,13 @@ class ALBertLMPredictionHead(nn.Module):
 
         # The output weights are the same as the input embeddings, but there is
         # an output-only bias for each token.
-        self.decoder = nn.Linear(config.hidden_size,
+        self.bias = nn.Parameter(torch.zeros(config.vocab_size))
+        self.dense = nn.Linear(config.embedding_size,
                                  config.vocab_size,
                                  bias=False)
-
-        self.bias = nn.Parameter(torch.zeros(config.vocab_size))
-
     def forward(self, hidden_states):
         hidden_states = self.transform(hidden_states)
-        hidden_states = self.decoder(hidden_states) + self.bias
+        hidden_states = self.dense(hidden_states) + self.bias
         return hidden_states
 
 
@@ -618,7 +616,7 @@ class ALBertModel(ALBertPreTrainedModel):
             See base class PreTrainedModel
         """
         for layer, heads in heads_to_prune.items():
-            self.encoder.layer[layer].attention.prune_heads(heads)
+            self.encoder.layer.attention.prune_heads(heads)
 
     def forward(self, input_ids, attention_mask=None, token_type_ids=None, position_ids=None, head_mask=None):
         if attention_mask is None:
