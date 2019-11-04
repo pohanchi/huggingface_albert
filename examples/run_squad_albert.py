@@ -89,7 +89,7 @@ def train(args, train_dataset, model, tokenizer):
         {'params': [p for n, p in model.named_parameters() if not any(nd in n for nd in no_decay)], 'weight_decay': args.weight_decay},
         {'params': [p for n, p in model.named_parameters() if any(nd in n for nd in no_decay)], 'weight_decay': 0.0}
         ]
-    optimizer = AdamW(optimizer_grouped_parameters, lr=args.learning_rate, eps=args.adam_epsilon)
+    optimizer = Lamb(optimizer_grouped_parameters, lr=args.learning_rate, eps=args.adam_epsilon)
     scheduler = WarmupLinearSchedule(optimizer, warmup_steps=args.warmup_steps, t_total=t_total)
     if args.fp16:
         try:
@@ -381,7 +381,7 @@ def main():
                         help="Number of updates steps to accumulate before performing a backward/update pass.")
     parser.add_argument("--weight_decay", default=0.0, type=float,
                         help="Weight deay if we apply some.")
-    parser.add_argument("--adam_epsilon", default=1e-8, type=float,
+    parser.add_argument("--adam_epsilon", default=1e-12, type=float,
                         help="Epsilon for Adam optimizer.")
     parser.add_argument("--max_grad_norm", default=1.0, type=float,
                         help="Max gradient norm.")

@@ -207,7 +207,7 @@ class Lamb(Optimizer):
     """
 
     def __init__(self, params, lr=1e-6, betas=(0.9, 0.999), eps=1e-6,
-                 adam=False,weight_decay=0.0, correct_bias=True):
+                 adam=True,weight_decay=0.0, correct_bias=True):
         if not 0.0 <= lr:
             raise ValueError("Invalid learning rate: {}".format(lr))
         if not 0.0 <= eps:
@@ -217,7 +217,7 @@ class Lamb(Optimizer):
         if not 0.0 <= betas[1] < 1.0:
             raise ValueError("Invalid beta parameter at index 1: {}".format(betas[1]))
         defaults = dict(lr=lr, betas=betas, eps=eps,
-                        weight_decay=weight_decay)
+                        weight_decay=weight_decay,correct_bias=correct_bias)
         self.adam = adam
         super(Lamb, self).__init__(params, defaults)
 
