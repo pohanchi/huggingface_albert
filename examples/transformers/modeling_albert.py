@@ -374,7 +374,7 @@ class ALBertEncoder(nn.Module):
         all_hidden_states = ()
         all_attentions = ()
         for i in range(self.layer_num):
-            if (i ==0):
+            if i == 0:
                 hidden_states = self.embedding_hidden_mapping_in(hidden_states)
 
             if self.output_hidden_states:
