@@ -375,7 +375,7 @@ def main():
                         help="Batch size per GPU/CPU for training.")
     parser.add_argument("--per_gpu_eval_batch_size", default=6, type=int,
                         help="Batch size per GPU/CPU for evaluation.")
-    parser.add_argument("--learning_rate", default=8e-5, type=float,
+    parser.add_argument("--learning_rate", default=1e-5, type=float,
                         help="The initial learning rate for Adam.")
     parser.add_argument('--gradient_accumulation_steps', type=int, default=8,
                         help="Number of updates steps to accumulate before performing a backward/update pass.")
@@ -465,7 +465,7 @@ def main():
     args.model_type = args.model_type.lower()
     config_class, model_class, tokenizer_class = MODEL_CLASSES[args.model_type]
     config = config_class.from_json_file(args.config_pretrain)
-    tokenizer = tokenizer_class(vocab_file="spm_model/30k-clean.model",lower_case=args.do_lower_case)
+    tokenizer = tokenizer_class(vocab_file="spm_model/30k-clean.model",do_lower_case=args.do_lower_case)
     model = model_class(config=config)
     model.load_state_dict(torch.load(args.model_dict_pretrain),strict=False)
 
