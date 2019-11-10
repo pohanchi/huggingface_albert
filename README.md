@@ -9,7 +9,7 @@ support for albert_base, albert_large, albert_xlarge <br>
 ### Second, prepare your data 
 {Training data path} and testing data{Testing data path}.  <br>
 ### Current status: 
-you can just run the squad task on albert-base model by using the below code on examples/ <br>
+you can run the squad task for albert <br>
 
 ---
 
