@@ -27,3 +27,6 @@ Include Version 2 of Albert!
 
 also albert_xl2 on squad 1.1 the performance <br>
 EM 85.57 F1 Score 92.68 still training.......for 3 epoch !!!!!!
+
+The paper report on version 2 is 
+<br> EM 86.1 F1 Score 92.5 
