@@ -6,7 +6,7 @@ support for albert_base, albert_large, albert_xlarge <br>
 ---
 
 ### First, prepare your data 
-{Training data path} and testing data{Testing data path}.  <br>
+{Training data path} and {Testing data path}.  <br>
 ### Current status
 you can run the squad task for albert <br>
 
