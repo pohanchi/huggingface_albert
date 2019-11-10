@@ -5,9 +5,9 @@ support for albert_base, albert_large, albert_xlarge <br>
 
 ---
 
-First Clone this repo. <br>
-Second, prepare your training data {Training data path} and testing data{Testing data path}.  <br>
-Current status: you can just run the squad task on albert-base model by using the below code on examples/ <br>
+### First Clone this repo. <br>
+### Second, prepare your training data {Training data path} and testing data{Testing data path}.  <br>
+### Current status: you can just run the squad task on albert-base model by using the below code on examples/ <br>
 
 ---
 
@@ -16,6 +16,8 @@ EM 78.89 , F1 score 87.38
 
 The paper report the performance is below: <br>
 EM 82.3 F1 score 89.3
+
+example:
 ```
 python run_squad_albert.py --train_file {Training data path} \
 --predict_file {Testing data path}  \
