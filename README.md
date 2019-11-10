@@ -5,8 +5,7 @@ support for albert_base, albert_large, albert_xlarge <br>
 
 ---
 
-### First Clone this repo. <br>
-### Second, prepare your data 
+### First, prepare your data 
 {Training data path} and testing data{Testing data path}.  <br>
 ### Current status
 you can run the squad task for albert <br>
@@ -26,7 +25,7 @@ python run_squad_albert.py --train_file {Training data path} \
 --save_steps 1000 --logging_steps 1000 --num_train_epochs 3 \
 ```
 
-if you want albert_large or albert_xlarge, you need to download the pytorch_state_dict on here https://drive.google.com/drive/folders/1OZuoBw0cNkPLFXdoz4xTZrTXdRHO7hUI?usp=sharing <br> and put on ```examples/pytorch_model_state_dict``` <br>and set new a argument below as ```--model_dict_pretrain ./pytorch_model_state_dict/{model_file name}```.<br> also adjust the config file set to ```--config_pretrain ./config/{alber_xxx.json}``` then you can use it for big model.
+if you want albert_large or albert_xlarge, you need to download the pytorch_state_dict on here https://drive.google.com/drive/folders/1OZuoBw0cNkPLFXdoz4xTZrTXdRHO7hUI?usp=sharing <br> put on ```examples/pytorch_model_state_dict``` <br>set new a argument below as ```--model_dict_pretrain ./pytorch_model_state_dict/{model_file name}```.<br> adjust the config file set to ```--config_pretrain ./config/{alber_xxx.json}``` then you can use it for big model.
 
 ### The Model Performance
 #### Version 1
@@ -45,7 +44,7 @@ EM 84.52 F1 Score 91.61
 
 #### Version 2 
 
-Albert_xl2 on squad 1.1 the performance <br>
+My Albert_xl2 on squad 1.1 the performance <br>
 EM 86.32 F1 Score 92.99 still training.......for 3 epoch !!!!!!
 
 The paper report the version 2 for albert xlarge on Squad 1.1 is 
