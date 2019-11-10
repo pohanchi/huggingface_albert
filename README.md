@@ -8,13 +8,13 @@ support for albert_base, albert_large, albert_xlarge <br>
 ### First Clone this repo. <br>
 ### Second, prepare your data 
 {Training data path} and testing data{Testing data path}.  <br>
-### Current status: 
+### Current status
 you can run the squad task for albert <br>
 
 ---
 
 
-### example:
+### example
 ```
 python run_squad_albert.py --train_file {Training data path} \
 --predict_file {Testing data path}  \
@@ -28,7 +28,7 @@ python run_squad_albert.py --train_file {Training data path} \
 
 if you want albert_large or albert_xlarge, you need to download the pytorch_state_dict on here https://drive.google.com/drive/folders/1OZuoBw0cNkPLFXdoz4xTZrTXdRHO7hUI?usp=sharing <br> and put on ```examples/pytorch_model_state_dict``` <br>and set new a argument below as ```--model_dict_pretrain ./pytorch_model_state_dict/{model_file name}```.<br> also adjust the config file set to ```--config_pretrain ./config/{alber_xxx.json}``` then you can use it for big model.
 
-### The Model Performance:
+### The Model Performance
 #### Version 1
 
 Run on Squad 1.1 task (albert base) <br>
