@@ -53,3 +53,5 @@ The paper report the version 2 for albert xlarge on Squad 1.1 is
 
 ### Performance On version 2 albert base
 
+<img src="./examples/img/eval_HasAns_exact.svg">
+<img src="./examples/img/eval_HasAns_f1.svg">
