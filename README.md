@@ -49,3 +49,7 @@ EM 86.32 F1 Score 92.99 still training.......for 3 epoch !!!!!!
 
 The paper report the version 2 for albert xlarge on Squad 1.1 is 
 <br> EM 86.1 F1 Score 92.5 
+
+
+### Performance On version 2 albert base
+
