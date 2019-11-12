@@ -51,7 +51,9 @@ The paper report the version 2 for albert xlarge on Squad 1.1 is
 <br> EM 86.1 F1 Score 92.5 
 
 
-### Performance On version 2 albert base
-
+### Performance On version 2 albert base (Squad 1.1)
+Exact Match: <br>
 <img src="./examples/img/eval_HasAns_exact.svg">
+
+F1 Score: <br>
 <img src="./examples/img/eval_HasAns_f1.svg">
